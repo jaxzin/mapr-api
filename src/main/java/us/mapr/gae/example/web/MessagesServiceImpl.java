@@ -1,11 +1,11 @@
-package net.kindleit.gae.example.web;
+package us.mapr.gae.example.web;
 
 import java.util.Collection;
 
-import net.kindleit.gae.example.client.MessagesService;
-import net.kindleit.gae.example.model.Message;
-import net.kindleit.gae.example.model.Messages;
-import net.kindleit.gae.example.server.MessageRepository;
+import us.mapr.gae.example.client.MessagesService;
+import us.mapr.gae.example.model.Message;
+import us.mapr.gae.example.model.Messages;
+import us.mapr.gae.example.server.MessageRepository;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 

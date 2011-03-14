@@ -1,4 +1,4 @@
-package net.kindleit.gae.example.server;
+package us.mapr.gae.example.server;
 
 
 import static org.junit.Assert.assertEquals;
@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Collection;
 
-import net.kindleit.gae.example.model.Message;
+import us.mapr.gae.example.model.Message;
 
 import org.junit.After;
 import org.junit.Before;

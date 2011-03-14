@@ -1,7 +1,7 @@
-package net.kindleit.gae.example.client.ui;
+package us.mapr.gae.example.client.ui;
 
-import net.kindleit.gae.example.client.MessagesService;
-import net.kindleit.gae.example.client.MessagesServiceAsync;
+import us.mapr.gae.example.client.MessagesService;
+import us.mapr.gae.example.client.MessagesServiceAsync;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Composite;

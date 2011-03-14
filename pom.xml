@@ -38,7 +38,6 @@
           <groupId>javax.jdo</groupId>
           <artifactId>jdo2-api</artifactId>
           <version>2.3-eb</version>
-          <scope>runtime</scope>
       </dependency>
 
     <dependency>
@@ -193,7 +192,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>2.2.0</version>
         <configuration>
           <logLevel>INFO</logLevel>
 
@@ -202,7 +201,7 @@
 
           <!-- This must point to your GWT modules! -->
           <compileTargets>
-            <value>net.kindleit.gae.example.Messages</value>
+            <value>us.mapr.gae.example.Messages</value>
           </compileTargets>
 
           <!-- This is for generating Asynch interfaces -->
@@ -282,10 +281,10 @@
 
     <!-- Specify AppEngine version for your project. It should match SDK version pointed to
       by ${gae.home} property (Typically, one used by your Eclipse plug-in) -->
-    <gae.version>${gaeVersion}</gae.version>
+    <gae.version>1.4.0</gae.version>
 
     <!-- GWT version -->
-    <gwt.version>${gwtVersion}</gwt.version>
+    <gwt.version>2.2.0</gwt.version>
 
     <!-- Upload to http://test.latest.<applicationName>.appspot.com by default -->
     <gae.application.version>test</gae.application.version>

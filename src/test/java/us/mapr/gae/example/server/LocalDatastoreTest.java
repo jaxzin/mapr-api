@@ -1,4 +1,4 @@
-package net.kindleit.gae.example.server;
+package us.mapr.gae.example.server;
 
 import org.junit.After;
 import org.junit.Before;

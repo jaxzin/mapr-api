@@ -1,4 +1,4 @@
-package net.kindleit.gae.example.model;
+package us.mapr.gae.example.model;
 
 import java.io.Serializable;
 

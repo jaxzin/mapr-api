@@ -1,6 +1,6 @@
-package net.kindleit.gae.example.client;
+package us.mapr.gae.example.client;
 
-import net.kindleit.gae.example.client.ui.Shoutbox;
+import us.mapr.gae.example.client.ui.Shoutbox;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.DOM;

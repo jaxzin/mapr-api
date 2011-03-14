@@ -1,8 +1,8 @@
-package net.kindleit.gae.example.client;
+package us.mapr.gae.example.client;
 
 import java.util.List;
 
-import net.kindleit.gae.example.model.Message;
+import us.mapr.gae.example.model.Message;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

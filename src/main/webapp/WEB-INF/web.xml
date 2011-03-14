@@ -8,7 +8,7 @@
     <servlet>
         <servlet-name>messages</servlet-name>
         <servlet-class>
-            net.kindleit.gae.example.web.MessagesServiceImpl
+            us.mapr.gae.example.web.MessagesServiceImpl
         </servlet-class>
     </servlet>
 

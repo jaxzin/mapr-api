@@ -1,7 +1,7 @@
-package net.kindleit.gae.example.client.ui;
+package us.mapr.gae.example.client.ui;
 
-import net.kindleit.gae.example.client.MessagesServiceAsync;
-import net.kindleit.gae.example.model.Message;
+import us.mapr.gae.example.client.MessagesServiceAsync;
+import us.mapr.gae.example.model.Message;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
