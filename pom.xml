@@ -8,8 +8,8 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>${name}</name>
-  <description>${description}</description>
+  <name>Mapr API</name>
+  <description>A RESTful API for retrieving location data about your friends and family.</description>
 
   <pluginRepositories>
     <pluginRepository>
@@ -27,7 +27,19 @@
       <artifactId>gae-runtime</artifactId>
       <version>${gae.version}</version>
       <type>pom</type>
+        <exclusions>
+            <exclusion>
+                <groupId>com.google.appengine.orm</groupId>
+                <artifactId>jdo2-api</artifactId>
+            </exclusion>
+        </exclusions>
     </dependency>
+      <dependency>
+          <groupId>javax.jdo</groupId>
+          <artifactId>jdo2-api</artifactId>
+          <version>2.3-eb</version>
+          <scope>runtime</scope>
+      </dependency>
 
     <dependency>
       <groupId>javax.transaction</groupId>
@@ -231,7 +243,7 @@
       <plugin>
         <groupId>net.kindleit</groupId>
         <artifactId>maven-gae-plugin</artifactId>
-        <version>${gaePluginVersion}</version>
+        <version>0.8.2</version>
         <dependencies>
           <dependency>
             <groupId>net.kindleit</groupId>
