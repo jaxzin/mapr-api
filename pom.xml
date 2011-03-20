@@ -390,8 +390,10 @@
         </plugins>
     </build>
 
-    <!-- Specify hard-coded project properties here -->
     <properties>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <!-- This is just for "eclipse:eclipse" goal to always attempt downloading sources -->
         <downloadSources>true</downloadSources>
 
