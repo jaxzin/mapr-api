@@ -1,9 +1,9 @@
 import us.mapr.api.model.Friend
 
-request['privateName'] = 'Brian!!'
-
-request['model'] = new Friend(first: 'Brian', last: 'Jackson');
-
-response.contentType = 'application/json'
+request['model'] = [
+        new Friend(first: 'Brian', last: 'Jackson'),
+        new Friend(first: 'Meridith', last: 'Jackson'),
+        new Friend(first: 'Brad', last: 'Lage')
+]
 
 forward '/friends-json.gtpl'

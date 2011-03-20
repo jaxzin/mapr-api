@@ -1,5 +1,7 @@
-{
-  'name': '${request.parameterMap['name']}',
-  'private': '${request['privateName']},
-  'fullName': '${request['model'].first} ${request['model'].last}'
-}
+<% response.setContentType("application/json") %>
+[<% request['model'].eachWithIndex { friend, i -> %>
+  {
+    'first': '${friend.first}',
+    'last': '${friend.last}
+  }${i!=request['model'].size()-1?',':''}
+<%} %>]
