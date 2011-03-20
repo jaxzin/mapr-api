@@ -1,0 +1,41 @@
+/*
+ *  Revision Information:
+ *  $Id$
+ *  $Author$
+ *  $DateTime$
+ *
+ * Copyright ©2011 ESPN.com and Disney Interactive Media Group.  All rights reserved.
+ */
+package us.mapr.api.config;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.servlet.GuiceServletContextListener;
+import com.google.inject.servlet.ServletModule;
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Guice replacement for web.xml
+ *
+ * @author <a href="mailto:Brian.R.Jackson@espn3.com">Brian R. Jackson</a>
+ * @version $Change$
+ */
+public class WebConfig extends GuiceServletContextListener {
+    @Override
+    protected Injector getInjector() {
+        return Guice.createInjector(
+                new ServletModule() {
+                    @Override
+                    protected void configureServlets() {
+                        final Map<String, String> params = new HashMap<String, String>();
+                        params.put(PackagesResourceConfig.PROPERTY_PACKAGES, "us.mapr.api");
+                        serve("/resources/*").with(GuiceContainer.class, params);
+                    }
+                }
+        );
+    }
+}
