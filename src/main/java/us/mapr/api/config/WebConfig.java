@@ -28,12 +28,19 @@ public class WebConfig extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         return Guice.createInjector(
+                new SpringContextModule(),
                 new ServletModule() {
                     @Override
                     protected void configureServlets() {
+
                         final Map<String, String> params = new HashMap<String, String>();
                         params.put(PackagesResourceConfig.PROPERTY_PACKAGES, "us.mapr.api");
                         serve("/resources/*").with(GuiceContainer.class, params);
+
+                        // Spring Security
+//                        bind(DelegatingFilterProxy.class).in(Singleton.class);
+//                        filter("/*").through(DelegatingFilterProxy.class);
+//                        bind(org.springframework.web.context.ContextLoaderListener.class);
                     }
                 }
         );

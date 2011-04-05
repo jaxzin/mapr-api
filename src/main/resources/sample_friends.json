@@ -1,0 +1,77 @@
+{
+    "friends": {
+        "brad-lage" : {
+            "name": {
+                "first": "Bradford",
+                "last": "Lage"
+            },
+            "lastSeen": {
+                "when": "2011-03-29T16:56:13.760-07:00", /* ISO 8601 datetime format */
+                "where": "home", /* User-defined category */
+
+                /*Extra info. Should this only be available from the 'self' link below? */
+                "latitude": 41.1234,
+                "longitude": -71.1234,
+                "accuracy": 30.0,
+                "source": "foursquare"
+            },
+            "links": {
+                "self": {
+                    "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends/brad-lage"
+                },
+                /* See: http://www.w3.org/TR/html5/links.html#rel-icon,
+                        an array to support multiple options,
+                        singular to match standard link relation type
+                */
+                "icon": [{
+                    "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends/brad-lage/icon",
+                    "sizes": [{"width": 32, "height":32}],
+                    "type": "image/png"
+                }]
+            }
+        },
+        "meridith-jackson" : {
+            "name": {
+                "first": "Meridith",
+                "last": "Jackson"
+            },
+            "lastSeen": {
+                "when": "2011-03-29T16:56:13.760-07:00",
+                "where": "home"
+            },
+            "links": {
+                "self": {
+                    "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends/meridith-jackson"
+                },
+                "icon": [{
+                    "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends/meridith-jackson/icon",
+                    "sizes": [{"width": 32, "height":32}],
+                    "type": "image/png"
+                }]
+            }
+        }
+    },
+    "links": {
+        "self": {
+            "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends?offset=10",
+            "op": "GET"
+        },
+        /* Following links might be added later if/when we need to support paging */
+        "next": {
+            "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends?offset=20",
+            "op": "GET"
+        },
+        "previous": {
+            "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends?offset=0",
+            "op": "GET"
+        },
+        "first": {
+            "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends",
+            "op": "GET"
+        },
+        "last": {
+            "href": "https://mapr-api.appspot.com/v1/users/jaxzin/friends?offset=50",
+            "op": "GET"
+        }
+    }
+}

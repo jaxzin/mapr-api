@@ -105,12 +105,12 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <!-- end for spring security -->
 
     <filter-mapping>
         <filter-name>GuiceFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- end for spring security -->
     <!-- Uncomment the following security constraint if you want to secure your incoming email endpoint -->
     <!-- Only allow the SDK and administrators to have access to the incoming email endpoint -->
     <!--

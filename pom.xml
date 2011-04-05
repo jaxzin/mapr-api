@@ -209,6 +209,11 @@
             <version>${guice.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-spring</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.sun.jersey.contribs</groupId>
             <artifactId>jersey-guice</artifactId>
             <version>${jersey.version}</version>
@@ -221,6 +226,35 @@
             <version>2.2.3</version>
             <classifier>jdk15</classifier>
         </dependency>
+
+        <!-- OAuth Support -->
+        <dependency>
+          <groupId>org.springframework.security.oauth</groupId>
+          <artifactId>spring-security-oauth</artifactId>
+          <version>1.0.0.M2</version>
+        </dependency>
+
+        <!-- Joda -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.6</version>
+        </dependency>
+
+        <!-- JSON support for Spring REST Template -->
+        <dependency>
+          <groupId>org.codehaus.jackson</groupId>
+          <artifactId>jackson-mapper-asl</artifactId>
+          <version>1.5.5</version>
+        </dependency>
+        
+        <!-- Atom Feed support -->
+        <dependency>
+          <groupId>rome</groupId>
+          <artifactId>rome</artifactId>
+          <version>1.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -329,12 +363,12 @@
                 <executions>
                     <!-- <execution> <id>generateAsynch</id> <phase>generate-sources</phase> <goals>
                  <goal>generateAsync</goal> </goals> </execution> -->
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
+                    <!--<execution>-->
+                        <!--<phase>compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>compile</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
                 </executions>
             </plugin>
 
@@ -436,7 +470,7 @@
         <gmaven.version>1.3</gmaven.version>
         <!--<gae.version>1.3.7</gae.version>-->
         <gaeplugin.version>0.7.1</gaeplugin.version>
-        <guice.version>3.0-rc3</guice.version>
+        <guice.version>3.0</guice.version>
         <jersey.version>1.5</jersey.version>
         <springsecurity.version>3.0.3.RELEASE</springsecurity.version>
     </properties>

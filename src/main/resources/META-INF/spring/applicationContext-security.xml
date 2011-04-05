@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
     xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd
+              http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
 
 	<!-- HTTP security configurations -->
     <http auto-config="true" use-expressions="true">
@@ -31,4 +33,42 @@
 		    </user-service>
     	</authentication-provider>
 	</authentication-manager>
+
+    <!-- OAuth 1.0 Support -->
+    <!--<beans:bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.InMemoryOAuth2ProviderTokenServices">-->
+      <!--<beans:property name="supportRefreshToken" value="true"/>-->
+    <!--</beans:bean>-->
+
+    <!--<oauth:provider client-details-service-ref="clientDetails" token-services-ref="tokenServices" >-->
+      <!--<oauth:verification-code user-approval-page="/oauth/confirm_access"/>-->
+    <!--</oauth:provider>-->
+
+    <!--<oauth:client-details-service id="clientDetails">-->
+      <!--<oauth:client clientId="my-trusted-client" authorizedGrantTypes="password,authorization_code,refresh_token"/>-->
+      <!--<oauth:client clientId="my-less-trusted-client" authorizedGrantTypes="authorization_code"/>-->
+      <!--<oauth:client clientId="tonr" authorizedGrantTypes="authorization_code"/>-->
+    <!--</oauth:client-details-service>-->
+
+    <!-- OAuth 2.0 Support -->
+    <!--apply the oauth client context-->
+    <oauth:client/>
+
+    <!--define an oauth 2 resource for sparklr-->
+    <!--<oauth:resource id="sparklr" type="authorization_code" clientId="tonr"-->
+    <!--accessTokenUri="http://localhost:8080/sparklr/oauth/authorize"-->
+    <!--userAuthorizationUri="http://localhost:8080/sparklr/oauth/user/authorize"/>-->
+
+    <!--define an oauth 2 resource for facebook. according to the facebook docs, the 'clientId' is the App ID, and the 'clientSecret' is the App Secret -->
+    <oauth:resource id="facebook" type="authorization_code" clientId="213276462022800"
+                    clientSecret="8c6cb0f724bb1f4dbdec80b4f1ddb30a"
+                    bearerTokenMethod="query" bearerTokenName="access_token"
+                    accessTokenUri="https://graph.facebook.com/oauth/access_token"
+                    userAuthorizationUri="https://graph.facebook.com/oauth/authorize"/>
+
+    <!--define an oauth 2 resource for google. This info is registered here: https://code.google.com/apis/console/ -->
+    <oauth:resource id="google" type="authorization_code" clientId="815656025636.apps.googleusercontent.com"
+                    clientSecret="5BFkVXAjIvJRwRfJ4Wyl6lnj"
+                    accessTokenUri="https://accounts.google.com/o/oauth2/token"
+                    userAuthorizationUri="https://accounts.google.com/o/oauth2/auth?scope=https://www.google.com/m8/feeds/"/>
+
 </beans:beans>
