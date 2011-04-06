@@ -35,7 +35,7 @@ public class WebConfig extends GuiceServletContextListener {
 
                         final Map<String, String> params = new HashMap<String, String>();
                         params.put(PackagesResourceConfig.PROPERTY_PACKAGES, "us.mapr.api");
-                        serve("/resources/*").with(GuiceContainer.class, params);
+                        serve("/*").with(GuiceContainer.class, params);
 
                         // Spring Security
 //                        bind(DelegatingFilterProxy.class).in(Singleton.class);

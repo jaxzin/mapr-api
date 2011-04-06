@@ -8,31 +8,46 @@
               http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd">
 
 	<!-- HTTP security configurations -->
-    <http auto-config="true" use-expressions="true">
-    	<form-login login-processing-url="/j_spring_security_check" />
-        <logout logout-url="/j_spring_security_logout"/>
+    <http auto-config="true" use-expressions="true" entry-point-ref="gaeEntryPoint">
+    	<!--<form-login login-processing-url="/j_spring_security_check" />-->
+        <!--<logout logout-url="/j_spring_security_logout"/>-->
         
         <!-- Configure these elements to secure URIs in your application -->
 <!--        
         <intercept-url pattern="/member/**" access="isAuthenticated()" /> -->
-        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/resources/**" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/**" access="permitAll" />
+        <intercept-url pattern="/" access="permitAll" />
+        <intercept-url pattern="/logout" access="permitAll" />
+        <intercept-url pattern="/register*" access="hasRole('NEW_USER')" />
+        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/**" access="hasRole('USER')"/>
+        <custom-filter position="PRE_AUTH_FILTER" ref="gaeFilter" />
     </http>
 
+    <beans:bean id="gaeEntryPoint" class="us.mapr.gae.security.GoogleAccountsAuthenticationEntryPoint"/>
+
+    <beans:bean id="gaeFilter" class="us.mapr.gae.security.GaeAuthenticationFilter">
+       <beans:property name="authenticationManager" ref="authenticationManager"/>
+       <beans:property name="failureHandler">
+           <beans:bean class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+               <beans:property name="exceptionMappings">
+                   <beans:map>
+                       <beans:entry key="org.springframework.security.authentication.DisabledException" value="/disabled.htm" />
+                   </beans:map>
+               </beans:property>
+           </beans:bean>
+       </beans:property>
+   </beans:bean>
+
 	<!-- Configure Authentication mechanism -->
-    <authentication-manager alias="authenticationManager">
-    	<!-- SHA-256 values can be produced using 'echo -n your_desired_password | sha256sum' (using normal *nix environments) -->
-    	<authentication-provider>
-	    	<password-encoder hash="sha-256"/>
-	        <user-service> 
-	            <user name="admin@gaelykapp.com" password="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" authorities="ROLE_ADMIN"/>
-				<!-- password is admin -->
-		        <user name="user@gaelykapp.com" password="04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb" authorities="ROLE_USER"/>
-				<!-- password is user -->
-		    </user-service>
-    	</authentication-provider>
-	</authentication-manager>
+   <authentication-manager alias="authenticationManager">
+       <authentication-provider ref="gaeAuthenticationProvider"/>
+   </authentication-manager>
+
+   <beans:bean id="gaeAuthenticationProvider" class="us.mapr.gae.security.GoogleAccountsAuthenticationProvider">
+       <beans:property name="userRegistry" ref="userRegistry" />
+   </beans:bean>
+
+   <beans:bean id="userRegistry" class="us.mapr.users.GaeDatastoreUserRegistry" />
 
     <!-- OAuth 1.0 Support -->
     <!--<beans:bean id="tokenServices" class="org.springframework.security.oauth2.provider.token.InMemoryOAuth2ProviderTokenServices">-->

@@ -95,17 +95,17 @@
     </servlet-mapping>
     -->
 
+    <!-- for spring security -->
+   <filter-mapping>
+       <filter-name>springSecurityFilterChain</filter-name>
+       <url-pattern>/*</url-pattern>
+   </filter-mapping>
+   <!-- end for spring security -->
     <!-- Uncomment the following filter mapping if you want to enable URL routing -->
     <filter-mapping>
         <filter-name>RoutesFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-     <!-- for spring security -->
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <!-- end for spring security -->
 
     <filter-mapping>
         <filter-name>GuiceFilter</filter-name>
@@ -124,6 +124,15 @@
     </security-constraint>
     -->
     <!-- for spring security -->
+    <!--<security-constraint>-->
+        <!--<web-resource-collection>-->
+            <!--<web-resource-name>resources</web-resource-name>-->
+            <!--<url-pattern>/resources/*</url-pattern>-->
+        <!--</web-resource-collection>-->
+        <!--<auth-constraint>-->
+            <!--<role-name>*</role-name>-->
+        <!--</auth-constraint>-->
+    <!--</security-constraint>-->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

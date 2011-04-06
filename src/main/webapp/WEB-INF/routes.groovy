@@ -6,4 +6,9 @@ get "/book/isbn/@isbn", forward: "/WEB-INF/groovy/book.groovy?isbn=@isbn", valid
 */
 
 // routes
-get "/friends",  forward: "/friends.groovy"
+get "/register",      forward: "/register.gtpl"
+//get "/",              forward: "/landing.gtpl"
+get "/home",          forward: "/home.gtpl"
+//get "/disabled",      forward: "/disabled.gtpl"
+get "/logout",        forward: "/logout.groovy"
+get "/loggedout",     forward: "/loggedout.gtpl"

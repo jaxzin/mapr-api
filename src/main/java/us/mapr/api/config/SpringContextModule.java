@@ -14,6 +14,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.security.oauth2.consumer.OAuth2RestTemplate;
 import org.springframework.security.oauth2.consumer.webserver.WebServerProfileResourceDetails;
+import us.mapr.users.GaeDatastoreUserRegistry;
+import us.mapr.users.UserRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,5 +70,10 @@ public class SpringContextModule extends AbstractModule {
         messageConverters.add(messageConverter);
         restTemplate.setMessageConverters(messageConverters);
         return restTemplate;
+    }
+
+    @Provides
+    public UserRegistry provideUserRegistry(@Named("userRegistry") GaeDatastoreUserRegistry userRegistry) {
+        return userRegistry;
     }
 }
