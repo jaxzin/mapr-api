@@ -6,9 +6,10 @@ import org.springframework.security.oauth2.consumer.OAuth2AccessTokenRequiredExc
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 
-@Provider
+// I suspect this exception mapper interferes with Spring Security OAuth because it absorbs the exception
+// prematurely in the filter chain.
+//@Provider
 public class OAuth2AccessTokenRequiredExceptionJsonMapper implements ExceptionMapper<OAuth2AccessTokenRequiredException> {
     @Override
     public Response toResponse(OAuth2AccessTokenRequiredException e) {
