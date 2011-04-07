@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.consumer.OAuth2RestTemplate
 import us.mapr.api.config.Facebook
 import us.mapr.api.model.*
 
-@Path("friends")
+@Path("users/my/friends")
 class FriendsResource {
 
   OAuth2RestTemplate facebookRestTemplate;

@@ -23,7 +23,7 @@
     ${gaeUser.forename} ${gaeUser.surname}.
     </p>
     <p>
-    <a href="/friends">Friends</a>.
+    <a href="/users/my/friends">My Friends</a>.
     </p>
     <p>
     <a href="/logout">Logout</a>.
