@@ -30,7 +30,11 @@ public abstract class AbstractJsonWriter<T> implements MessageBodyWriter<T> {
 
     protected abstract JSON toJSON(T object);
 
-    public void writeTo(T t,
+    public long getSize(T t, Class<?> aClass, Type type, Annotation[] annotations, MediaType mediaType) {
+        return toJSON(t).toString().length();
+    }
+
+    final public void writeTo(T t,
                         Class<?> aClass,
                         Type type,
                         Annotation[] annotations,

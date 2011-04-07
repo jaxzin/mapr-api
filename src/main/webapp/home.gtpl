@@ -5,7 +5,7 @@
   import org.springframework.security.core.Authentication
 
   Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-  GaeUser gaeUser = (GaeUser)authentication.getPrincipal();
+  def gaeUser = authentication.principal;
 %>
 <html>
  <head>

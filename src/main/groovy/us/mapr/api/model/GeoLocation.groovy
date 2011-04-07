@@ -1,7 +1,8 @@
 package us.mapr.api.model
 
 class GeoLocation {
-  double latitude,
+  String category
+  Double latitude,
          longitude,
          altitude,
          accuracy

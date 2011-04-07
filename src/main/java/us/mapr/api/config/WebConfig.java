@@ -1,11 +1,3 @@
-/*
- *  Revision Information:
- *  $Id$
- *  $Author$
- *  $DateTime$
- *
- * Copyright ©2011 ESPN.com and Disney Interactive Media Group.  All rights reserved.
- */
 package us.mapr.api.config;
 
 import com.google.inject.Guice;
@@ -21,8 +13,6 @@ import java.util.Map;
 /**
  * Guice replacement for web.xml
  *
- * @author <a href="mailto:Brian.R.Jackson@espn3.com">Brian R. Jackson</a>
- * @version $Change$
  */
 public class WebConfig extends GuiceServletContextListener {
     @Override
