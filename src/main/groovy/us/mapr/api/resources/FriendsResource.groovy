@@ -31,65 +31,43 @@ class FriendsResource {
     //noinspection GroovyAssignabilityCheck
     new Friends(
         friends:
-        json.data.collect {
-          checkin ->
-          def location = checkin["place"]["location"]
-          String friendName = checkin["from"]["name"].textValue
-          def friendNameUriFriendly = friendName.toLowerCase().replace(" ", "-")
-
-          URI friendUri =
-              uriInfo.requestUriBuilder
-                      .path(friendNameUriFriendly)
-                      .build()
-
-            new Friend(
-              name: friendName,
-              lastSeen:
-                new Checkin(
-                  where:
-                    new GeoLocation(
-                      category: "home",
-                      latitude: location.latitude?.doubleValue,
-                      longitude: location.longitude?.doubleValue,
-                      accuracy: location.accuracy?.doubleValue
-                    ),
-                  when: DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZ").parseDateTime(checkin["created_time"].textValue),
-                  source: CheckinSource.FACEBOOK
-                )
-            )
-        },
           // accumulate a Map<URI,Friend>
-//          json.data.inject([:]) {
-//            friends, checkin ->
-//            def location = checkin.place.location
-//            String friendName = checkin.from.name.textValue
-//            def friendNameUriFriendly = friendName.toLowerCase().replace(" ", "-")
-//
-//            URI friendUri =
-//                uriInfo.requestUriBuilder
-//                        .path(friendNameUriFriendly)
-//                        .build()
-//
-//            // Add the friend to the Map
-//            friends[friendUri] =
-//              new Friend(
-//                name: friendName,
-//                lastSeen:
-//                  new Checkin(
-//                    where:
-//                      new GeoLocation(
-//                        category: "home",
-//                        latitude: location.latitude?.doubleValue,
-//                        longitude: location.longitude?.doubleValue,
-//                        accuracy: location.accuracy?.doubleValue
-//                      ),
-//                    when: DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZ").parseDateTime(checkin.created_time.textValue),
-//                    source: CheckinSource.FACEBOOK
-//                  )
-//              )
-//
-//            friends
-//          },
+          json.data.inject([:]) {
+            friends, checkin ->
+            def location = checkin.place.location
+            String friendName = checkin.from.name.textValue
+            def friendNameUriFriendly = friendName.toLowerCase().replace(" ", "-")
+
+            String friendKey =
+                uriInfo.requestUriBuilder
+                        .path(friendNameUriFriendly)
+                        .build()
+                        .toString()
+
+            def checkinWhen = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZ").parseDateTime(checkin.created_time.textValue)
+
+            // Add the friend to the Map iff they don't have a younger checkin recorded already
+            if(friends[friendKey] == null || friends[friendKey]?.lastSeen?.when?.isBefore(checkinWhen)) {
+              friends[friendKey] =
+                new Friend(
+                  name: friendName,
+                  lastSeen:
+                    new Checkin(
+                      where:
+                        new GeoLocation(
+                          category: "home",
+                          latitude: location.latitude?.doubleValue,
+                          longitude: location.longitude?.doubleValue,
+                          accuracy: location.accuracy?.doubleValue
+                        ),
+                      when: checkinWhen,
+                      source: CheckinSource.FACEBOOK
+                    )
+                )
+            }
+
+            friends
+          },
         links: [
             self: new Link(href: uriInfo.requestUri, op: HttpMethod.GET)
         ]
