@@ -16,7 +16,6 @@
 <!--        
         <intercept-url pattern="/member/**" access="isAuthenticated()" /> -->
         <intercept-url pattern="/" access="permitAll" />
-        <intercept-url pattern="/_ah/login" access="permitAll" /> <!-- A problem for local dev only -->
         <intercept-url pattern="/logout" access="permitAll" />
         <intercept-url pattern="/register*" access="hasRole('NEW_USER')" />
         <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
@@ -76,7 +75,7 @@
 
     <!--define an oauth 2 resource for facebook. according to the facebook docs, the 'clientId' is the App ID, and the 'clientSecret' is the App Secret -->
     <oauth:resource id="facebook" type="authorization_code" clientId="213276462022800"
-                    clientSecret="8c6cb0f724bb1f4dbdec80b4f1ddb30a"
+                    clientSecret="a9a46c53849a683efd505208b5904b13"
                     bearerTokenMethod="query" bearerTokenName="access_token"
                     accessTokenUri="https://graph.facebook.com/oauth/access_token"
                     userAuthorizationUri="https://graph.facebook.com/oauth/authorize?scope=user_checkins,friends_checkins"/>

@@ -2,9 +2,6 @@ package us.mapr.api.json;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import javax.ws.rs.ext.Provider;
 
@@ -16,15 +13,15 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class BeanJsonWriter extends AbstractJsonWriter<Object> {
 
-    private DateTimeFormatter dateTimeFmt;
+//    private DateTimeFormatter dateTimeFmt;
 
-    public BeanJsonWriter() {
-        this.dateTimeFmt = ISODateTimeFormat.dateTime();
-    }
+//    public BeanJsonWriter() {
+//        this.dateTimeFmt = ISODateTimeFormat.dateTime();
+//    }
 
     @Override
     protected JSON toJSON(Object object) {
-        JsonConfig config = new JsonConfig();
+//        JsonConfig config = new JsonConfig();
 //        config.registerJsonBeanProcessor(DateTime.class,
 //                new JsonBeanProcessor() {
 //                    @Override
@@ -36,6 +33,7 @@ public class BeanJsonWriter extends AbstractJsonWriter<Object> {
 //                    }
 //                }
 //        );
-        return JSONObject.fromObject(object, config);
+//        return JSONObject.fromObject(object, config);
+        return JSONObject.fromObject(object);
     }
 }

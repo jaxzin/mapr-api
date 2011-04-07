@@ -4,7 +4,6 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.web.client.HttpClientErrorException;
 
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -21,8 +20,8 @@ public class HttpClientErrorExceptionJsonMapper implements ExceptionMapper<HttpC
         String stacktrace = buffer.toString();
 
         return Response
-                .status(e.getStatusCode().value())
-                .type("application/vnd.mapr.core.Collection+json; type=error")
+                .status(Response.Status.BAD_REQUEST)
+                .type("application/json")
                 .entity(new JSONObject().element("errors", new JSONArray().element(
                         new JSONObject()
                                 .element("message", "There was a problem connecting to an external resource, " + e.getMessage())

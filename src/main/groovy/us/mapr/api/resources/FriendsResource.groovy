@@ -10,6 +10,7 @@ import org.codehaus.jackson.node.ObjectNode
 import org.springframework.http.HttpMethod
 import org.springframework.security.oauth2.consumer.OAuth2RestTemplate
 import us.mapr.api.config.Facebook
+import us.mapr.api.model.Friend
 import us.mapr.api.model.Friends
 import us.mapr.api.model.Link
 
@@ -24,8 +25,16 @@ class FriendsResource {
     this.facebookRestTemplate = facebookRestTemplate
   }
 
-  @GET
+    @GET
   @Produces('application/json')
+  List<Friend> getFriendList() {
+    def objectNode = facebookRestTemplate.getForObject("https://graph.facebook.com/me/friends", ObjectNode.class);
+    def data = objectNode["data"]
+    data.collect {new Friend(name: it["name"].getTextValue())}
+  }
+
+//  @GET
+//  @Produces('application/json')
   Friends getFriends(@Context UriInfo uriInfo) {
     def json = facebookRestTemplate.getForObject("https://graph.facebook.com/me/checkins", ObjectNode.class);
     new Friends(

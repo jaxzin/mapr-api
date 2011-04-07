@@ -13,8 +13,8 @@ public class OAuth2AccessTokenRequiredExceptionJsonMapper implements ExceptionMa
     @Override
     public Response toResponse(OAuth2AccessTokenRequiredException e) {
         return Response
-                .status(Response.Status.BAD_REQUEST)
-                .type("application/vnd.mapr.core.Collection+json; type=error")
+                .status(Response.Status.FORBIDDEN)
+                .type("application/json")
                 .entity(new JSONObject().element("errors", new JSONArray().element(
                         new JSONObject()
                                 .element("message", e.getMessage())
