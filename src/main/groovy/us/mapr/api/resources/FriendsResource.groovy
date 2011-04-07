@@ -7,12 +7,11 @@ import javax.ws.rs.Produces
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.UriInfo
 import org.codehaus.jackson.node.ObjectNode
+import org.joda.time.format.DateTimeFormat
 import org.springframework.http.HttpMethod
 import org.springframework.security.oauth2.consumer.OAuth2RestTemplate
 import us.mapr.api.config.Facebook
-import us.mapr.api.model.Friend
-import us.mapr.api.model.Friends
-import us.mapr.api.model.Link
+import us.mapr.api.model.*
 
 @Path("friends")
 class FriendsResource {
@@ -25,47 +24,40 @@ class FriendsResource {
     this.facebookRestTemplate = facebookRestTemplate
   }
 
-    @GET
+  @GET
   @Produces('application/json')
-  List<Friend> getFriendList() {
-    def objectNode = facebookRestTemplate.getForObject("https://graph.facebook.com/me/friends", ObjectNode.class);
-    def data = objectNode["data"]
-    data.collect {new Friend(name: it["name"].getTextValue())}
-  }
-
-//  @GET
-//  @Produces('application/json')
   Friends getFriends(@Context UriInfo uriInfo) {
     def json = facebookRestTemplate.getForObject("https://graph.facebook.com/me/checkins", ObjectNode.class);
+    //noinspection GroovyAssignabilityCheck
     new Friends(
-//        friends:
-//        json.data.collect {
-//          checkin ->
-//          def location = checkin["place"]["location"]
-//          String friendName = checkin["from"]["name"].textValue
-//          def friendNameUriFriendly = friendName.toLowerCase().replace(" ", "-")
+        friends:
+        json.data.collect {
+          checkin ->
+          def location = checkin["place"]["location"]
+          String friendName = checkin["from"]["name"].textValue
+          def friendNameUriFriendly = friendName.toLowerCase().replace(" ", "-")
 
-//          URI friendUri =
-//              uriInfo.requestUriBuilder
-//                      .path(friendName)
-//                      .build()
-//
-//            new Friend(
-//              name: friendName,
-//              lastSeen:
-//                new Checkin(
-//                  where:
-//                    new GeoLocation(
-//                      category: "home",
-//                      latitude: location.latitude?.doubleValue,
-//                      longitude: location.longitude?.doubleValue,
-//                      accuracy: location.accuracy?.doubleValue
-//                    ),
-//                  when: facebookDateTimeFormatter.parseDateTime(checkin["created_time"].textValue),
-//                  source: CheckinSource.FACEBOOK
-//                )
-//            )
-//        },
+          URI friendUri =
+              uriInfo.requestUriBuilder
+                      .path(friendNameUriFriendly)
+                      .build()
+
+            new Friend(
+              name: friendName,
+              lastSeen:
+                new Checkin(
+                  where:
+                    new GeoLocation(
+                      category: "home",
+                      latitude: location.latitude?.doubleValue,
+                      longitude: location.longitude?.doubleValue,
+                      accuracy: location.accuracy?.doubleValue
+                    ),
+                  when: DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZ").parseDateTime(checkin["created_time"].textValue),
+                  source: CheckinSource.FACEBOOK
+                )
+            )
+        },
           // accumulate a Map<URI,Friend>
 //          json.data.inject([:]) {
 //            friends, checkin ->
@@ -91,7 +83,7 @@ class FriendsResource {
 //                        longitude: location.longitude?.doubleValue,
 //                        accuracy: location.accuracy?.doubleValue
 //                      ),
-//                    when: facebookDateTimeFormatter.parseDateTime(checkin.created_time.textValue),
+//                    when: DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ssZ").parseDateTime(checkin.created_time.textValue),
 //                    source: CheckinSource.FACEBOOK
 //                  )
 //              )
