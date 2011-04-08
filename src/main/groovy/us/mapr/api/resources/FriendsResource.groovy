@@ -8,13 +8,21 @@ import javax.ws.rs.core.Context
 import javax.ws.rs.core.UriInfo
 import org.codehaus.jackson.node.ObjectNode
 import org.joda.time.format.DateTimeFormat
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpMethod
+import org.springframework.http.MediaType
+import org.springframework.http.client.ClientHttpRequest
 import org.springframework.security.oauth2.consumer.OAuth2RestTemplate
+import org.springframework.web.client.HttpMessageConverterExtractor
+import org.springframework.web.client.RequestCallback
 import us.mapr.api.config.Facebook
 import us.mapr.api.model.*
 
 @Path("users/my/friends")
 class FriendsResource {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(FriendsResource.class);
 
   OAuth2RestTemplate facebookRestTemplate;
 
@@ -27,7 +35,18 @@ class FriendsResource {
   @GET
   @Produces('application/json')
   Friends getFriends(@Context UriInfo uriInfo) {
-    def json = facebookRestTemplate.getForObject("https://graph.facebook.com/me/checkins", ObjectNode.class);
+    RequestCallback requestCallback = new RequestCallback() {
+      void doWithRequest(ClientHttpRequest request) {
+        LOGGER.info("{} {}",request.method, request.URI)
+        request.headers.accept = [new MediaType("text","javascript")]
+      }
+    }
+
+    HttpMessageConverterExtractor<ObjectNode> responseExtractor =
+            new HttpMessageConverterExtractor<ObjectNode>(ObjectNode.class, facebookRestTemplate.getMessageConverters());
+
+    def json = facebookRestTemplate.execute("https://graph.facebook.com/search?type=checkin", HttpMethod.GET, requestCallback, responseExtractor);
+//    def json = facebookRestTemplate.getForObject("https://graph.facebook.com/search?type=checkin", ObjectNode.class);
     //noinspection GroovyAssignabilityCheck
     new Friends(
         friends:
