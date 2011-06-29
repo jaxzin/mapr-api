@@ -5,5 +5,5 @@ import org.joda.time.DateTime
 class Checkin {
   GeoLocation where
   DateTime when
-  CheckinSource source
+  //CheckinSource source
 }

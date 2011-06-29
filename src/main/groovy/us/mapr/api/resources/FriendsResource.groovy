@@ -79,8 +79,8 @@ class FriendsResource {
                           longitude: location.longitude?.doubleValue,
                           accuracy: location.accuracy?.doubleValue
                         ),
-                      when: checkinWhen,
-                      source: CheckinSource.FACEBOOK
+                      when: checkinWhen/*,
+                      source: CheckinSource.FACEBOOK*/
                     )
                 )
             }
