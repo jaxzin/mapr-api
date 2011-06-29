@@ -1,7 +1,5 @@
 package us.mapr.api.json;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.security.oauth2.consumer.OAuth2AccessTokenRequiredException;
 
 import javax.ws.rs.core.Response;
@@ -16,10 +14,7 @@ public class OAuth2AccessTokenRequiredExceptionJsonMapper implements ExceptionMa
         return Response
                 .status(Response.Status.FORBIDDEN)
                 .type("application/json")
-                .entity(new JSONObject().element("errors", new JSONArray().element(
-                        new JSONObject()
-                                .element("message", e.getMessage())
-                )).toString())
+                .entity(Errors.error(e.getMessage(), null).build())
                 .build();
 
     }

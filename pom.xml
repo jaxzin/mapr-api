@@ -255,21 +255,15 @@
 
         <!-- JSON -->
         <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>2.2.3</version>
-            <classifier>jdk15</classifier>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
             <version>${jersey.version}</version>
+        </dependency>
+        <!-- For custom jersey json mappers -->
+        <dependency>
+          <groupId>org.codehaus.jackson</groupId>
+          <artifactId>jackson-core-asl</artifactId>
+          <version>${jackson.version}</version>
         </dependency>
 
         <!-- OAuth Support -->
@@ -291,7 +285,7 @@
           <groupId>org.codehaus.jackson</groupId>
           <artifactId>jackson-mapper-asl</artifactId>
             <!-- Match the version spring-web includes -->
-          <version>1.7.5</version>
+          <version>${jackson.version}</version>
         </dependency>
         
         <!-- Atom Feed support -->
@@ -556,6 +550,7 @@
         <jersey.version>1.6</jersey.version>
         <springsecurity.version>3.0.3.RELEASE</springsecurity.version>
         <slf4j.version>1.6.1</slf4j.version>
+        <jackson.version>1.7.5</jackson.version>
     </properties>
 
     <profiles>
